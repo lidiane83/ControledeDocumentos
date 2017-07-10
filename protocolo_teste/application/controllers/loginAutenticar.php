@@ -13,6 +13,7 @@ public function autenticar()
 			//	session_start();
 				$_SESSION["nome"] = $usuario['Nome'];
 				$_SESSION["id_setor"] = $usuario['id_setor'];
+				$_SESSION["id_secretaria"] = $usuario['id_secretaria'];
 				$_SESSION["datahora"]= date('Y-m-j H:i:s');
 				$_SESSION["perfil"] = $usuario['id_perfil'];
 				$_SESSION["id"] = $usuario['id'];
@@ -21,7 +22,7 @@ public function autenticar()
 			}else{  
 				$this->session->set_flashdata("danger" , "Usuário ou senha inválida!");
 				//redirect('/');
-				header( "refresh:0;url=/protocoloCompletoII/protocolo_teste/index.php" );
+				header( "refresh:0;url=/protocoloCompletoIII/protocolo_teste/index.php" );
 }
 }
      
@@ -36,7 +37,7 @@ function logout()
 		$this->session->set_flashdata("success", "Deslogado com sucesso!");
 		session_destroy();
 		//redirect('/','refresh');
-		header( "refresh:0;url=/protocoloCompletoII/protocolo_teste/index.php" );
+		header( "refresh:0;url=/protocoloCompletoIII/protocolo_teste/index.php" );
 	}
 	
  function verificaPerfil($usuario)

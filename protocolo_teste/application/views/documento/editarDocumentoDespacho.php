@@ -17,7 +17,20 @@
   <li class="list-group-item"><b>Volume: </b><?php echo $dados['volumes'];?></li>
  <li class="list-group-item"><b>Forma de remessa: </b><?php echo $dados['formaremessa'];?></li>
  <h3> <li class="list-group-item"><b>Encaminhar para: </b></li> </h3>
- <li class="list-group-item"><b>Setor: </b>
+
+<li class="list-group-item"><b>Secretaria: </b>
+<select name="id_secretaria" class = "form-control">
+        <?php foreach($secretaria as $tipo) : 
+       $essaEhOfuncao = $dados['id_tipo'] == $tipo['id'];
+                $selecao = $essaEhOfuncao ? "selected='selected'" : "";
+    ?>
+    <option value="<?=$tipo['id']?>" <?=$selecao?>>
+                    <?=$tipo['nome']?>
+            </option>
+        <?php endforeach ?>
+        </select>
+</li>
+<li class="list-group-item"><b>Setor: </b>
 <select name="id_setor" class = "form-control">
         <?php foreach($setor as $tipo) : 
 			 $essaEhOfuncao = $dados['id_tipo'] == $tipo['id'];

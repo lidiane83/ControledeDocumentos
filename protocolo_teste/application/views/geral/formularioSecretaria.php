@@ -1,6 +1,6 @@
 <?php include_once('cabecalho.php');?>
 <?php
-				echo form_open("controleSetor/cadastraSetor");?>
+				echo form_open("controleSecretaria/cadastraSecretaria");?>
 				<div class="form-group">
 					
 					<tr>
@@ -27,19 +27,7 @@
 						</td>
 					</tr>
 				<tr>
-				<div class = "form-group col-md-4">
-					<td class = "form-control">Secretaria</td>
-    <td>
-        <select name="id_secretaria" class = "form-control">
-        <?php foreach($sec as $secretaria) : ?>
-            <option value="<?=$secretaria['id']?>"><?=$secretaria['nome']?></option>
-        <?php endforeach ?>
-        </select>
-    </div>
-    </td>
-	</tr>
-	<tr>
-			<div class = "form-group col-md-6">
+					<div class = "form-group col-md-6">
 					<td>
 						<?php
 							$atributos = (array("style"=>"color:#696969"));

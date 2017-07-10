@@ -38,14 +38,16 @@
 		<tr class="danger">
 			 <td><b> Data/hora:</b></td>
             <td><b> Usuário Origem:</b></td>
-			 <td><b>Setor destino:</b></td>
-			 <td><b>Situação:</b></td>
+            <td><b>Secretaria destino:</b></td>
+            <td><b>Setor destino:</b></td>
+			      <td><b>Situação:</b></td>
             <td><b>Observação:</b></td>
 			 	</tr>
 			 <?php foreach($dados as $dados) : ?>
 			<tr>
 				<td><?php echo $dados['datahora'];?></td>
                 <td><?php echo $dados['usuario'];?></td>
+                <td><?php echo $dados['sec']?></td>  
                	<td><?php echo $dados['nome']?></td>	
 				<td><?php echo $dados['assunto'];?></td>
                 <td><?php echo $dados['descricao'];?></td>

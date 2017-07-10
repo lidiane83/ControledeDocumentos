@@ -96,4 +96,34 @@ public function buscaTodosPerfil() {
         return $this->db->get("perfil")->result_array();
     }
 
+//CRUD DE Secretarias
+//----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//CRUD Secretarias
+public function salvaSecretaria($sec){
+
+    $this->db->insert("secretaria",$sec);
+}
+
+public function buscaTodosSecretaria() {
+        return $this->db->get("secretaria")->result_array();
+    }
+    
+public function deletaSecretaria($id){
+    
+        return $this->db->delete('secretaria', array('id' => $id)); ;
+  }
+  
+ public function buscarSecretaria($id) {
+     
+ return $this->db->get_where("secretaria", array("id" => $id))->row_array();
+}
+
+
+public function atualizaSecretaria($sec){
+    $this->db->where('id',$sec["id"]);
+    $this->db->set($sec);
+    return $this->db->update('secretaria');
+}
+
+
 }

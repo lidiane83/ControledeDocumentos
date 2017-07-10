@@ -3,7 +3,8 @@ session_start();
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 class controleDocumento extends CI_Controller {
 
-public function geraNumero(){
+public function geraNumero()
+{
 
 	
 	autoriza(); // helper que autoriza ou nao a navegacao nas telas
@@ -24,6 +25,7 @@ public function geraNumero(){
 	$usuario_banco = $_SESSION["nome"];
 	$numero['id_setor'] = $_SESSION["id_setor"];
 	$id_setor_banco = $_SESSION["id_setor"];
+	$id_secretaria_banco = $_SESSION["id_secretaria"];
 	$numero['datahora'] = $_SESSION["datahora"];
 	$databanco = $_SESSION["datahora"];
 	$assunto = 'Protocolo Gerado';
@@ -33,6 +35,7 @@ public function geraNumero(){
 	$documentoProtocolado = array( "numeroprotocolo"=> $doc,
 								    "datahora"=> $databanco,
 									"id_setor" => $id_setor_banco,
+									"id_secretaria" => $id_secretaria_banco,
 										"usuario" => $usuario_banco,
 										"assunto"=> $assunto,
 										"fase"=>$fase,
@@ -63,8 +66,9 @@ public function buscarDocumento(){ // esta funcao lista todos os documentos que 
 public function buscarDocumentoSetor(){ // esta funcao lista todos os documentos que devem ser registrados
 	$usuariologado = autoriza(); // autoriza a nevegacao entre telas
 	$setor = $_SESSION["id_setor"];
+	$secretaria = $_SESSION["id_secretaria"];
 	$this->load->model("documentos_model");
-	$dados['dados'] = $this->documentos_model->buscaTodosDocumentoRegistroSetor($setor);
+	$dados['dados'] = $this->documentos_model->buscaTodosDocumentoRegistroSetor($setor, $secretaria);
 		if($dados['dados']){
 			$this->load->view("documento/listarDocumento.php",$dados);
 		}else{
@@ -208,6 +212,8 @@ function editarDocumentoRegistro()  {
 		$dados = array("dados"=>$documento);
 
 				$dados['setor']=$this->geral_model->buscaTodosSetor();
+				$dados['secretaria']=$this->geral_model->buscaTodosSecretaria();
+
 				$this->load->view("documento/editarDocumentoDespacho", $dados);
  } // esta funcao pega o documento e o ID para abrir a tela de registro
 
@@ -259,7 +265,7 @@ public function Receber(){
 		}else {log_message('error', 'Erro ao alizar a pessoa.');}
 	
 }
-
+//quando o documento é enviado para algum setor
  public function atualizaTramite(){
 	
 		$this->load->library("form_validation");
@@ -273,6 +279,7 @@ public function Receber(){
 		
 			$data['id'] = $this->input->post('id');
 			$data['id_setor'] = $this->input->post('id_setor');
+			$data['id_secretaria'] = $this->input->post('id_secretaria');
 			$data['assunto'] = $this->input->post('assunto');
 			$data['descricao'] = $this->input->post('descricao');
 			$data ['fase'] = 2;
@@ -285,6 +292,7 @@ public function Receber(){
 			$documentoProtocolado = array( "numeroprotocolo"=> $this->input->post('numeroprotocolo'),
 								    "datahora"=> $databanco,
 									"id_setor" => $this->input->post('id_setor'),
+									"id_secretaria" => $this->input->post('id_secretaria'),
 										"usuario" => $usuario_banco,
 										"assunto"=> $this->input->post('assunto'),
 										"fase"=>2,

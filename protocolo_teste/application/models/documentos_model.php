@@ -2,15 +2,19 @@
 
 class documentos_model extends CI_Model
 {
-	public function buscaUltimo($ano){
+	public function buscaUltimo($ano)
+	{
 		$this->db->select_max('numero');
 		$this->db->where('ano',$ano);
 		return $this->db->get('numeroprotocolo')->row_array();
 		
-} // esta função retorna a última linha do numero do protocolo
-public function insereProtocolo($protocolo){
+	} // esta função retorna a última linha do numero do protocolo
+
+public function insereProtocolo($protocolo)
+{
 	$this->db->insert("numeroprotocolo", $protocolo);
-}
+} 
+
 public function insereDocumento($documento){
 	$this->db->insert("documento",$documento);
 }
@@ -29,10 +33,11 @@ public function buscaTodosDocumentoRegistro() {
         return $this->db->get("documento")->result_array();
     }
     // esta funcao retorna todos os documentos que estao para ser registrados
-    public function buscaTodosDocumentoRegistroSetor($setor) {
+    public function buscaTodosDocumentoRegistroSetor($setor, $sec) {
 		$fase = 0;
 		$this->db->where("fase",$fase);
 		$this->db->where('documento.id_setor',$setor);
+		$this->db->where('documento.id_secretaria',$sec);
         return $this->db->get("documento")->result_array();
     } //esta função mostra os documentos a serem registrados por setor
   public function buscaTotalRegistrar() {
@@ -152,9 +157,10 @@ public function atualizadocumento($documento)
 }
 
 public function buscaHistorico($documento)
-{	$this->db->select("historico.*, setor.nome");
+{	$this->db->select("historico.*, setor.nome, secretaria.nome as sec");
 	$this->db->from("historico");
 	$this->db->join("setor", "historico.id_setor= setor.id");
+	$this->db->join("secretaria", "historico.id_secretaria= secretaria.id");
 	$this->db->where("numeroprotocolo",$documento);
 	$this->db->order_by("historico.datahora", "asc");
 	return $this->db->get()->result_array();

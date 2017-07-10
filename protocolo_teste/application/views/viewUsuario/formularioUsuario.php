@@ -83,6 +83,19 @@
     </div>
     </td>
 	</tr>
+	<tr>
+				<div class = "form-group col-md-4">
+					<td class = "form-control">Secretaria</td>
+    <td>
+        <select name="id_secretaria" class = "form-control">
+        <?php foreach($sec as $secretaria) : ?>
+        <?= var_dump($secretaria['id'])?>
+        <option value="<?=$secretaria['id']?>"><?=$secretaria['nome']?></option>
+        <?php endforeach ?>
+        </select>
+    </div>
+    </td>
+	</tr>
 <tr>
 <div class = "form-group col-md-4">
 		<td class = "form-control">Perfil</td>

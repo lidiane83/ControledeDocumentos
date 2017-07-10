@@ -8,6 +8,7 @@ class controleUsuario extends CI_Controller {
 				$dados['perfil']=$this->geral_model->buscaTodosPerfil();	
 				$dados['setor']=$this->geral_model->buscaTodosSetor();
 				$dados['funcao']=$this->geral_model->buscaTodosFuncao();
+				$dados['sec']=$this->geral_model->buscaTodosSecretaria();
 				autoriza();
 				$this->load->view("viewUsuario/formularioUsuario.php", $dados);
 		
@@ -44,7 +45,8 @@ public function novo() {
             "senha" => md5($this->input->post("senha")),
 			"id_setor"=> $this->input->post("id_setor"),
 			"id_perfil"=>$this->input->post("id_perfil"),
-			"id_funcao"=>$this->input->post("id_funcao"));
+			"id_funcao"=>$this->input->post("id_funcao"),
+			"id_secretaria"=>$this->input->post("id_secretaria"));
 
 		$this->load->model("usuarios_model");
         $this->usuarios_model->salvaUsuario($usuario);
@@ -76,8 +78,8 @@ function editarUsuario()  {
 				$dados['perfil']=$this->geral_model->buscaTodosPerfil();	
 				$dados['setor']=$this->geral_model->buscaTodosSetor();
 				$dados['funcao']=$this->geral_model->buscaTodosFuncao();
-
-$this->load->view("viewUsuario/listarUsuario", $dados);
+				$dados['id_secretaria']=$this->geral_model->buscaTodosSecretaria();
+				$this->load->view("viewUsuario/listarUsuario", $dados);
  }
 
 public function buscarUsuario(){
@@ -128,6 +130,7 @@ public function buscarUsuario(){
 		$data['id_setor'] = $this->input->post('id_setor');
 		$data['id_perfil'] = $this->input->post('id_perfil');
 		$data['id_funcao'] = $this->input->post('id_funcao');
+		$data['id_secretaria'] = $this->input->post('id_secretaria');
  		$this->load->model('usuarios_model');
  
 		/* Executa a função atualizar do modelo passando como parâmetro os dados obtidos do formulário */
